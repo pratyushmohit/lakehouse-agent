@@ -1,0 +1,36 @@
+services:
+  lakehouse-mcp:
+    build: .
+    container_name: lakehouse-mcp
+    command: uv run uvicorn src.mcp_server.server:app --host 0.0.0.0 --port 8001 --workers 2
+    ports:
+      - "8001:8001"
+    env_file: .env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  lakehouse-agent:
+    build: .
+    container_name: lakehouse-agent
+    command: uv run uvicorn src.app:app --host 0.0.0.0 --port 8000 --workers 2
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      - MCP_SERVER_URL=http://lakehouse-mcp:8001/mcp
+      - OLLAMA_HOST=http://host.docker.internal:11434
+    depends_on:
+      lakehouse-mcp:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
