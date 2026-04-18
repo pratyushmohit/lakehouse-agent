@@ -21,7 +21,8 @@ User → POST /chat
 | Tool | What it does |
 |---|---|
 | `list_catalogs` | List all Unity Catalog catalogs |
-| `search_tables` | Find tables in `samples.tpcds_sf1` by keyword |
+| `list_tables` | List all tables in `samples.tpcds_sf1` |
+| `search_tables` | Find tables in `samples.tpcds_sf1` by keyword (name or column match) |
 | `explain_table` | Get column schema and metadata for a table |
 | `run_query` | Execute SQL on a Databricks SQL warehouse |
 | `get_job_status` | Check recent job/pipeline run statuses |
