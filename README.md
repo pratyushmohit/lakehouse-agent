@@ -1,6 +1,7 @@
-# lakehouse-agent
+# Lakehouse Agent
+Autonomous natural language operations for Databricks — discover data, run SQL, monitor pipelines.
 
-An autonomous Databricks Lakehouse Operations Agent. Ask business questions in plain English — the agent figures out which tables to query, verifies their schema, runs SQL against a Databricks SQL warehouse, checks pipeline health, and interprets results in business terms. It does not guess: it discovers the right data before it writes a single line of SQL.
+ Ask business questions in plain English — the agent figures out which tables to query, verifies their schema, runs SQL against a Databricks SQL warehouse, checks pipeline health, and interprets results in business terms. It does not guess: it discovers the right data before it writes a single line of SQL.
 
 ## What it does
 
