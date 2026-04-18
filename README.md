@@ -275,7 +275,7 @@ make dev          # Agent API on :8000 with hot reload
 Run tests:
 
 ```bash
-uv run pytest
+make test
 ```
 
 After changing `pyproject.toml`, run `make install` to update `uv.lock`.
@@ -290,3 +290,4 @@ After changing `pyproject.toml`, run `make install` to update `uv.lock`.
 | `make down` | Stop and remove containers |
 | `make dev` | Run agent API locally with hot reload |
 | `make mcp-server` | Run MCP server locally |
+| `make test` | Install dependencies and run the test suite |
