@@ -58,11 +58,27 @@ def list_catalogs() -> list[str]:
 
 
 @mcp.tool()
+def list_tables() -> list[str]:
+    """
+    List all tables available in the samples.tpcds_sf1 schema.
+    Call this first to discover what data is available.
+    """
+    logger.info("Tool call: list_tables")
+    tables = [
+        t.name
+        for t in itertools.islice(_w().tables.list(catalog_name=CATALOG, schema_name=SCHEMA), 200)
+    ]
+    logger.info("list_tables returned %d tables", len(tables))
+    return tables
+
+
+@mcp.tool()
 def search_tables(query: str) -> list[dict]:
     """
     Search for tables in the samples.tpcds_sf1 schema by keyword.
     Matches against table name and column names.
-    Returns table name, comment, and column count.
+    Use this when looking for tables related to a specific business concept
+    (e.g. 'sales', 'customer', 'store', 'item', 'inventory').
     """
     logger.info("Tool call: search_tables query=%s", query)
     w = _w()
