@@ -70,7 +70,8 @@ async def chat(request: ChatRequest):
             user_id=request.user_id,
         ):
             result = await _agent.ainvoke(
-                {"messages": [{"role": "user", "content": request.message}]}
+                {"messages": [{"role": "user", "content": request.message}]},
+                config={"recursion_limit": 20},
             )
             response = result["messages"][-1].content
             span.update(output={"response": response})
