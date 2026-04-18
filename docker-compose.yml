@@ -1,6 +1,9 @@
 services:
   lakehouse-mcp:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: lakehouse-mcp:latest
     container_name: lakehouse-mcp
     command: uv run uvicorn src.mcp_server.server:app --host 0.0.0.0 --port 8001 --workers 2
     ports:
@@ -15,7 +18,10 @@ services:
       start_period: 10s
 
   lakehouse-agent:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: lakehouse-agent:latest
     container_name: lakehouse-agent
     command: uv run uvicorn src.app:app --host 0.0.0.0 --port 8000 --workers 2
     ports:
